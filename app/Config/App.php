@@ -22,7 +22,7 @@ class App extends BaseConfig
      * explicitly and never rely on auto-guessing, especially in production
      * environments.
      */
-    public string $baseURL = 'http://localhost:8080/afri-archivo-division-cadastre';
+    public string $baseURL = 'http://localhost/afri-archivo-division-cadastre';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

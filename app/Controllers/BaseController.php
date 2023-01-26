@@ -2,11 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Models\RoleModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Model;
+use Config\Services;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -54,5 +58,10 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        helper(['form', 'url', 'custom', 'text', 'html']);
+        $this->validation = Services::validation();
+        $this->session = Services::session();
+        $this->userModel = new UserModel();
+        $this->roleModel = new RoleModel();
     }
 }
