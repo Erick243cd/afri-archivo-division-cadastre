@@ -9,16 +9,19 @@ class Dashboard extends BaseController
     public function index()
     {
         $data = [
-            'title'     => 'Dashboard | Afrinewsoft',
-//            'cars'      =>  $this->carModel->countAll(),
-//            'videos'    =>  $this->videoModel->countAll(),
-            'users'     =>  $this->userModel->countAll(),
-//            'teams'     =>  $this->teamModel->countAll(),
-//            'services'  =>  $this->serviceModel->countAll(),
-//            'tests'     =>  $this->testModel->countAll(),
-//            'projs'     =>  $this->projectModel->countAll(),
+            'title' => 'Dashboard | Afrinewsoft',
+            'communes' => $this->communeModel->countAll(),
+            'lotissements' => $this->lotissementModel->countAll(),
+            'pcs' => $this->pcModel->countAll(),
+
+            'miseEnValeurs' => $this->miseEnValeurModel->countAll(),
+            'delimitations' => $this->delimitationModel->countAll(),
+            'mesurage' => $this->mesurageBornageModel->countAll(),
+            'constat_lieu' => $this->constatLieuModel->countAll(),
+
+            'users' => $this->userModel->countAll(),
             'user_data' => session()->get('user_data')
         ];
-        return view('dashboard/index',$data);
+        return view('dashboard/index', $data);
     }
 }

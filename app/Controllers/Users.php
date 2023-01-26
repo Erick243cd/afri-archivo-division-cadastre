@@ -10,7 +10,7 @@ class Users extends BaseController
     {
         $data = [
             'user_data' => session()->get('user_data'),
-            'title'     => 'Les Utilisateurs | Eldad Services',
+            'title'     => 'Les Utilisateurs | Afrinewsoft',
             'users'     => $this->userModel->asObject()->findUserByID(null)
         ];
         return view('users/admin/index',$data);
@@ -64,11 +64,11 @@ class Users extends BaseController
                     'u_role' => $this->request->getVar('role'),
                     'u_picture' => 'user-default-avatar.png',
                     'created_at' => date("Y-m-d"),
-                    'u_password' => Hash::make(123456),
+                    'u_password' => Hash::make('@12345'),
                     'status' => 'active'
                 );
                 $this->userModel->insert($data);
-                $this->sendMailforSignup($data['u_email'], $data['u_firstname']);
+                //$this->sendMailforSignup($data['u_email'], $data['u_firstname']);
                 $session = session();
                 $session->setFlashData("success", "Utilisateur créé avec succès !");
                 return redirect()->to('/list-users');
@@ -110,7 +110,7 @@ class Users extends BaseController
 
     function addImage()
     {
-        if (!is_logged()) return redirect()->to('/login');
+       // if (!is_logged()) return redirect()->to('/login');
 
         $session_data = session()->get('user_data');
         $data[] = null;
@@ -144,8 +144,8 @@ class Users extends BaseController
             ];
             if ($this->validate($rules)) {
 
-                $path = './assets/es_admin/images/mrd';
-                $path_user = './assets/es_admin/images/user';
+                $path = '.public/assets/images/tmp';
+                $path_user = '.public/assets/images/user';
 
                 $file = $this->request->getFile('picture');
                 $imageName = $file->getRandomName();

@@ -32,7 +32,7 @@ $user_data = session()->get('user_data');
     <style>
         body {
             font-family: "Century Gothic";
-            background: linear-gradient(95deg, white, orangered, whitesmoke);
+            background: linear-gradient(95deg, lightseagreen, darkblue, dodgerblue);
         }
 
         }
@@ -52,7 +52,7 @@ $user_data = session()->get('user_data');
             <div class="">
                 <div class="main-menu-header">
                     <img class="img-radius img-fluid wid-100"
-                         src="<?= site_url() ?>public/assets/images/users/<?= $user_data['u_picture'] ?? "no-image.jpg" ?>"
+                         src="<?= site_url() ?>public/assets/images/user/<?= $user_data['u_picture'] ?? "no-image.jpg" ?>"
                          alt="User image">
                     <div class="user-details">
                         <div id="more-details"><?= ucfirst($user_data['u_role']) ?? "Rôle" ?> <i
@@ -75,44 +75,67 @@ $user_data = session()->get('user_data');
                 </div>
             </div>
             <ul class="nav pcoded-inner-navbar ">
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Navigation</label>
-                </li>
-                <li class="nav-item pcoded-hasmenu">
-                    <a href="<?= base_url() ?>/profile" class="nav-link "><span class="pcoded-micon"><i
-                                    class="feather icon-home"></i></span><span class="pcoded-mtext">Profile</span></a>
-                </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="<?= base_url() ?>/dashboard" class="nav-link "><span class="pcoded-micon"><i
-                                    class="feather icon-user"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                                    class="feather icon-home text-success"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 </li>
                 <?php if ($user_data['u_role'] === 'admin'): ?>
 
                     <li class="nav-item pcoded-hasmenu">
-                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i
-                                        class="feather icon-users"></i></span><span class="pcoded-mtext">Produits</span></a>
+                        <a href="#!" class="nav-link "><span class="pcoded-micon"><i
+                                        class="feather icon-layout"></i></span><span class="pcoded-mtext">PV</span></a>
                         <ul class="pcoded-submenu">
-                            <li><a href="<?= base_url() ?>/add-service">Ajouter Un Produit</a></li>
-                            <li><a href="<?= base_url() ?>/service-list">Tous Les Produits</a></li>
+                            <li class="pcoded-hasmenu"><a href="#!">Mise en valeur</a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="layout-static.html" target="_blank">Ajouter</a></li>
+                                    <li><a href="layout-fixed.html" target="_blank">Liste</a></li>
+                                </ul>
+                            </li>
+                            <li class="pcoded-hasmenu"><a href="#!">Mesurage & Bornage</a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="layout-static.html" target="_blank">Ajouter</a></li>
+                                    <li><a href="layout-fixed.html" target="_blank">Liste</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="pcoded-hasmenu"><a href="#!">Délimitation officielle</a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="layout-static.html" target="_blank">Ajouter</a></li>
+                                    <li><a href="layout-fixed.html" target="_blank">Liste</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="pcoded-hasmenu"><a href="#!">Constat de lieu</a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="layout-static.html" target="_blank">Ajouter</a></li>
+                                    <li><a href="layout-fixed.html" target="_blank">Liste</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item pcoded-hasmenu">
                         <a href="#!" class="nav-link"><span class="pcoded-micon"><i
-                                        class="feather icon-image"></i></span><span class="pcoded-mtext">Carousel</span></a>
+                                        class="feather icon-image"></i></span><span class="pcoded-mtext">PC</span></a>
                         <ul class="pcoded-submenu">
-                            <li><a href="<?= base_url() ?>/add-carousel">Ajouter Image Carousel</a></li>
-                            <li><a href="<?= base_url() ?>/carousel-list">Liste d'Images</a></li>
+                            <li><a href="<?= site_url() ?>add-pc">Nouveau PC</a></li>
+                            <li><a href="<?= site_url() ?>pc-list">Liste de PCs</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item pcoded-hasmenu">
                         <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                        class="feather icon-users"></i></span><span
+                                        class="feather icon-users text-primary"></i></span><span
                                     class="pcoded-mtext">Utilisateurs</span></a>
                         <ul class="pcoded-submenu">
                             <li><a href="<?= base_url() ?>/add-user">Ajouter Utilisateur</a></li>
                             <li><a href="<?= base_url() ?>/list-users"">Liste Utilisateurs</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item pcoded-hasmenu">
+                        <a href="<?= base_url() ?>/profile" class="nav-link "><span class="pcoded-micon"><i
+                                        class="feather icon-user-check text-danger"></i></span><span
+                                    class="pcoded-mtext">Profile</span></a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -160,7 +183,7 @@ $user_data = session()->get('user_data');
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            <img src="<?= base_url() ?>/assets/es_admin/images/user/<?= $user_data['u_picture'] /*?? "user-default-avatar.png"*/ ?>"
+                            <img src="<?= site_url() ?>public/assets/images/user/<?= $user_data['u_picture'] /*?? "user-default-avatar.png"*/ ?>"
                                  class="img-radius" alt="pix">
                             <span><?= ucfirst($user_data['u_firstname']) ?? "" ?></span>
                             <a href="<?= base_url() ?>/logout" class="dud-logout" title="Déconnexion">
@@ -237,32 +260,32 @@ $user_data = session()->get('user_data');
 <!-- Warning Section Ends -->
 
 <!-- Required Js -->
-<script src="<?= base_url() ?>public/assets/js/vendor-all.min.js"></script>
-<script src="<?= base_url() ?>public/assets/js/plugins/bootstrap.min.js"></script>
-<script src="<?= base_url() ?>public/assets/js/ripple.js"></script>
-<script src="<?= base_url() ?>public/assets/js/pcoded.min.js"></script>
-<script src="<?= base_url() ?>public/assets/js/menu-setting.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/vendor-all.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/plugins/bootstrap.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/ripple.js"></script>
+<script src="<?= site_url() ?>public/assets/js/pcoded.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/menu-setting.min.js"></script>
 
 <!-- Apex Chart -->
-<script src="<?= base_url() ?>public/assets/js/plugins/apexcharts.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/plugins/apexcharts.min.js"></script>
 <!-- custom-chart js -->
-<script src="<?= base_url() ?>public/assets/js/pages/dashboard-main.js"></script>
+<script src="<?= site_url() ?>public/assets/js/pages/dashboard-main.js"></script>
 
 <!-- datatable Js -->
-<script src="<?= base_url() ?>public/assets/js/plugins/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>public/assets/js/js/plugins/dataTables.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>public/assets/js/pages/data-advance-custom.js"></script>
+<script src="<?= site_url() ?>public/assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/pages/data-advance-custom.js"></script>
 
 <!-- notification Js -->
-<script src="<?= base_url() ?>public/assets/js/plugins/bootstrap-notify.min.js"></script>
-<script src="<?= base_url() ?>public/assets/js/pages/ac-notification.js"></script>
+<!--<script src="--><? //= site_url() ?><!--public/assets/js/plugins/bootstrap-notify.min.js"></script>-->
+<!--<script src="--><? //= site_url() ?><!--public/assets/js/pages/ac-notification.js"></script>-->
 <!-- file-upload Js -->
-<script src="<?= base_url() ?>public/assets/js/plugins/dropzone-amd-module.min.js"></script>
-<script src="<?= base_url() ?>public/assets/js/menu-setting.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/plugins/dropzone-amd-module.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/menu-setting.min.js"></script>
 <!-- select2 Js -->
-<script src="<?= base_url() ?>public/assets/js/plugins/select2.full.min.js"></script>
+<script src="<?= site_url() ?>public/assets/js/plugins/select2.full.min.js"></script>
 <!-- form-select-custom Js -->
-<script src="<?= base_url() ?>public/assets/js/pages/form-select-custom.js"></script>
+<script src="<?= site_url() ?>public/assets/js/pages/form-select-custom.js"></script>
 
 <script>
     $('#user-list-table').DataTable();

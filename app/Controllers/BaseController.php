@@ -2,6 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Models\CommuneModel;
+use App\Models\ConstatLieuModel;
+use App\Models\DelimitationModel;
+use App\Models\LotissementModel;
+use App\Models\MesurageBornageModel;
+use App\Models\MiseEnValeurModel;
+use App\Models\PcModel;
 use App\Models\RoleModel;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
@@ -61,7 +68,21 @@ abstract class BaseController extends Controller
         helper(['form', 'url', 'custom', 'text', 'html']);
         $this->validation = Services::validation();
         $this->session = Services::session();
+
         $this->userModel = new UserModel();
         $this->roleModel = new RoleModel();
+
+        $this->pcModel = new PcModel();
+
+        $this->constatLieuModel = new ConstatLieuModel();
+        $this->delimitationModel = new DelimitationModel();
+        $this->mesurageBornageModel = new MesurageBornageModel();
+        $this->miseEnValeurModel = new MiseEnValeurModel();
+
+
+        $this->lotissementModel = new LotissementModel();
+        $this->communeModel = new CommuneModel();
+
+
     }
 }

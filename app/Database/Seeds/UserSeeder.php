@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'u_email' => $faker->email(),
             'u_password' => Hash::make('@12345'),
             'phone' => $faker->phoneNumber(),
-            'u_picture' => 'no-image.jpg'
+            'u_picture' => 'user-default-avatar.png'
         ];
     }
 }

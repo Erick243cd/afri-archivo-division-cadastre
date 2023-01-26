@@ -58,7 +58,7 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-inline-block align-middle">
-                                                        <img src="<?= base_url() ?>/assets/es_admin/images/user/<?= $row->u_picture ?? "no-image.jpg"?>"
+                                                        <img src="<?= site_url() ?>public/assets/images/user/<?= $row->u_picture ?? "no-image.jpg"?>"
                                                              alt="user image" class="img-radius align-top m-r-15"
                                                              style="width:40px;">
                                                         <div class="d-inline-block">

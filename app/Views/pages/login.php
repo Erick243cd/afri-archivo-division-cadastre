@@ -16,7 +16,7 @@
 </head>
 <style>
     .auth-wrapper {
-        background: linear-gradient(dodgerblue, lightseagreen);
+        background: linear-gradient(95deg, lightseagreen, darkblue, dodgerblue);
     }
 
     #btnLog {

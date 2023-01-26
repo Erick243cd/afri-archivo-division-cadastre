@@ -33,7 +33,7 @@ helper('text');
                                     <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="profile-dp">
                                             <div class="position-relative d-inline-block">
-                                                <img class="img-radius img-fluid wid-100" src="<?= base_url()?>/assets/es_admin/images/user/<?= $user_data['u_picture'] ?? "user-default-avatar.png"?>" alt="User image">
+                                                <img class="img-radius img-fluid wid-100" src="<?= site_url()?>public/assets/images/user/<?= $user_data['u_picture'] ?? "user-default-avatar.png"?>" alt="User image">
                                             </div>
                                             <div class="overlay">
                                                 <span>change</span>

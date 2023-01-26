@@ -46,6 +46,9 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('/add-user', 'Users::create');
     $routes->get('/add-member', 'Team::create');
     $routes->get('/change-pwd', 'Auth::change');
+
+    //PCs
+    $routes->get('/add-pc', 'Pcs::add');
 });
 
 $routes->group('', ['filter' => 'AlreadyLoggedIn'], function ($routes) {
@@ -75,6 +78,10 @@ $setRoutes['change-pwd'] = 'Auth::change';
 $setRoutes['settings'] = 'Auth::settings';
 $setRoutes['logout'] = 'Auth::logout';
 $setRoutes['update-one-self'] = 'Auth::updateOneSelf';
+
+//PCs
+$setRoutes['add-pc'] = 'Pcs::add';
+
 
 // $routes->set404Override(function(){
 //     echo view('errors/html/error_404.php');
