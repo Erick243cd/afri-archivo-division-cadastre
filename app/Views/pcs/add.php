@@ -14,7 +14,7 @@
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url() ?>/dashboard"><i
                                             class="feather icon-home"></i>Tableau de Bord</a></li>
-                            <li class="breadcrumb-item"><a href="<?= site_url() ?>pcs">Liste de PCs</a></li>
+                            <li class="breadcrumb-item"><a href="<?= site_url() ?>pcs-list">Liste de PCs</a></li>
                             <li class="breadcrumb-item"><a href="#!">Création d'un nouveau PC</a></li>
                         </ul>
                     </div>
@@ -83,17 +83,19 @@
                             </div>
 
                             <div class="col-xl-4 col-md-4 mb-md-0 mb-sm-5 mt-2">
-                                <select class="js-example-placeholder-multiple col-sm-12" name="commune" id="commune">
-                                    <option value="Genre" disabled selected>Commune</option>
-                                    <option value="M" <?= set_select('commune', "M"); ?>>M</option>
+                                <select class="js-example-placeholder-multiple col-sm-12" name="commune" id="selectBox"
+                                        data-placeholder="Commune/Territoire/Groupement">
+                                    <option value="">Commune/Territoire/Groupement</option>
+                                    <?php foreach ($communes as $row): ?>
+                                        <option value="<?= $row->commune_id ?>" <?= set_select('commune', $row->commune_id); ?>><?= $row->commune_name ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <small class="text-danger"><?= $validation['commune'] ?? null ?></small>
                             </div>
                             <div class="col-xl-4 col-md-4 mb-md-0 mb-sm-5 mt-2">
                                 <select class="js-example-placeholder-multiple col-sm-12" name="lotissement"
-                                        id="lotissement">
-                                    <option value="Genre" disabled selected>Lotissement</option>
-                                    <option value="M" <?= set_select('lotissement', "M"); ?>>M</option>
+                                        data-placeholder="Sélectionner le lotissement" id="lotissement-result">
+                                    <option value="" selected>Sélectionner le lotissement</option>
                                 </select>
                                 <small class="text-danger"><?= $validation['lotissement'] ?? null ?></small>
                             </div>
@@ -118,7 +120,7 @@
                                     <small class="text-danger"><?= $validation['date_enregistrement'] ?? null ?></small>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label class="floating-label font-weight-bold text-muted" for="Text">Fichier
                                     Scanné</label>
                                 <div class="form-group">
@@ -126,11 +128,11 @@
                                 </div>
                                 <small class="text-danger"><?= $validation['scanned_file'] ?? null ?></small>
                             </div>
-                            <div class="col-xl-12 col-md-12 mb-md-0 mb-sm-5">
+                            <div class="col-xl-6 col-md-6 mb-md-0 mb-sm-5">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1" class="font-weight-bold text-muted">Observation</label>
-                                    <textarea name="observation" class="form-control" id="exampleFormControlTextarea1"
-                                              rows="0"><?= set_value('observation') ?></textarea>
+                                    <textarea name="observation" class="form-control"
+                                              rows="1"><?= set_value('observation') ?></textarea>
                                 </div>
                             </div>
                             <button class="btn btn-primary ml-3 has-ripple" type="submit">Enregistrer</button>

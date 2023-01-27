@@ -49,6 +49,9 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
 
     //PCs
     $routes->get('/add-pc', 'Pcs::add');
+    $routes->post('lotissement-by-commune', 'Pcs::getLotisByCommune');
+    $routes->get('pcs-list', 'Pcs::index');
+    $routes->post('fetch-pcs', 'Pcs::fetchPcs');
 });
 
 $routes->group('', ['filter' => 'AlreadyLoggedIn'], function ($routes) {
@@ -80,7 +83,6 @@ $setRoutes['logout'] = 'Auth::logout';
 $setRoutes['update-one-self'] = 'Auth::updateOneSelf';
 
 //PCs
-$setRoutes['add-pc'] = 'Pcs::add';
 
 
 // $routes->set404Override(function(){

@@ -119,7 +119,7 @@ $user_data = session()->get('user_data');
                                         class="feather icon-image"></i></span><span class="pcoded-mtext">PC</span></a>
                         <ul class="pcoded-submenu">
                             <li><a href="<?= site_url() ?>add-pc">Nouveau PC</a></li>
-                            <li><a href="<?= site_url() ?>pc-list">Liste de PCs</a></li>
+                            <li><a href="<?= site_url() ?>pcs-list">Liste de PCs</a></li>
                         </ul>
                     </li>
 

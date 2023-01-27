@@ -5,7 +5,7 @@
         var filePath = $("#spnFilePath");
         var button = $("#btnFileUpload");
         button.click(function () {
-           fileupload.click();
+            fileupload.click();
         });
         fileupload.change(function () {
             var fileName = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
@@ -30,3 +30,67 @@
         });
     });
 </script>
+<?php if (isset($page) && $page == 'write'): ?>
+    <script>
+        //Triage de lotissement par commune
+        // $(document).ready(function () {
+        let url = "<?= site_url()?>lotissement-by-commune";
+        $('#selectBox').on('change', function () {
+            let query = $(this).val();
+            if (query !== "") { // On teste s'il y a le résultat
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        query: query
+                    },
+                    success: function (data) {
+                        $("#lotissement-result").html(data).show();
+                    }
+                });
+            } else {
+                $("#lotissement-result").hide();
+            }
+        });
+        //});
+    </script>
+<?php endif; ?>
+
+<?php if (isset($page) && $page == 'loadData'): ?>
+    <script>
+        $(document).ready(function () {
+            load_data();
+            function load_data(request) {
+                let searchType = $('#search_type').val();
+                $.ajax({
+                    url: "<?= site_url(); ?>fetch-pcs",
+                    method: "POST",
+                    data: {
+                        request: request,
+                        searchType: searchType,
+                    },
+                    success: function (data) {
+                        $('#pcs-result').html(data);
+                    }
+                });
+            }
+
+            $('#search_text').keyup(function () {
+                let search = $(this).val();
+                if (search !== '') {
+                    load_data(search);
+                } else {
+                    load_data();
+                }
+            });
+            $('#search_type').change(function () {
+                let search = $('#search_text').val();
+                if (search !== '') {
+                    load_data(search);
+                } else {
+                    load_data();
+                }
+            });
+        })
+    </script>
+<?php endif; ?>

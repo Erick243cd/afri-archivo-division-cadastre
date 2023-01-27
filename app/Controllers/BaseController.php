@@ -65,7 +65,7 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
-        helper(['form', 'url', 'custom', 'text', 'html']);
+        helper(['form', 'url', 'custom', 'text', 'html', 'download']);
         $this->validation = Services::validation();
         $this->session = Services::session();
 
