@@ -52,6 +52,11 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->post('lotissement-by-commune', 'Pcs::getLotisByCommune');
     $routes->get('pcs-list', 'Pcs::index');
     $routes->post('fetch-pcs', 'Pcs::fetchPcs');
+    $routes->get('delete-pc/(:any)', 'Pcs::deletePc/$1');
+    $routes->get('edit-pc/(:any)', 'Pcs::editPc/$1');
+    $routes->post('edit-pc/(:any)', 'Pcs::editPc/$1');
+
+
 });
 
 $routes->group('', ['filter' => 'AlreadyLoggedIn'], function ($routes) {

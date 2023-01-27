@@ -60,6 +60,7 @@
     <script>
         $(document).ready(function () {
             load_data();
+
             function load_data(request) {
                 let searchType = $('#search_type').val();
                 $.ajax({
@@ -94,3 +95,10 @@
         })
     </script>
 <?php endif; ?>
+
+
+<script>
+    $('#deleteBtn').on('click', () => {
+        return confirm("Etes-vous sûr de supprimer ce PC ?")
+    })
+</script>
