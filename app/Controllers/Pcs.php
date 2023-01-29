@@ -169,13 +169,12 @@ class Pcs extends BaseController
                 $output .= '<td>' . $row->lotis_name . '</td>';
                 $output .= '<td>' . $row->demandeur . '</td>';
                 $output .= '<td>' . $row->initiateur . '</td>';
-                $output .= '<td> <a class="btn btn-sm btn-primary" href="' . $path . '/' . $row->scanned_file . '"><i class="fa fa-file-download"></i></a></td>';
-
-                $msg = "Etes-vous sûr de supprimer ce PC ?";
+                $output .= '<td> <a class="btn btn-sm btn-danger text-white" href="' . $path . '/' . $row->scanned_file . '"><i class="fas fa-file-pdf"></i></a></td>';
                 $output .= '
                             <td>
-                                <a title="Voir le détail" class="btn btn-sm btn-info" href="' . site_url("edit-pc/{$row->pc_id}") . '"><i class="fas fa-edit"></i></a>
-                                <a title="Supprimer" id="deleteBtn" class="btn btn-sm btn-danger" href="' . site_url("delete-pc/{$row->pc_id}") . '"><i class="fas fa-trash"></i></a>
+                                <a title="Voir le détail" class="btn btn-sm btn-primary" href="' . site_url("edit-pc/{$row->pc_id}") . '"><i class="fas fa-edit"></i></a>
+                                <a title="Supprimer" class="btn btn-sm btn-danger" href="' . site_url("delete-pc/{$row->pc_id}") . '"><i class="fas fa-trash"></i></a>
+                                <a title="Changer le fichier" class="btn btn-sm btn-warning" href="' . site_url("change-pc-scanned-file/{$row->pc_id}") . '"><i class="far fa-file"></i></a>
                             </td>
                           
                             ';
@@ -203,16 +202,20 @@ class Pcs extends BaseController
 
     public function editPc($pcId = null)
     {
-        $pc = $this->pcModel->asObject()->where('pc_id', $pcId)->first();
+        $pc = $this->pcModel->asObject()
+            ->join('communes', 'communes.commune_id=pcs.commune')
+            ->join('lotissements', 'lotissements.lotis_id=pcs.lotissement')
+            ->where('pc_id', $pcId)->first();
         if (!empty($pc)) {
 
             $data = [
                 'validation' => null,
                 'page' => 'write',
+                'pc' => $pc,
                 'title' => "Editer Pc",
                 'communes' => $this->communeModel->asObject()
                     ->orderBy('commune_name', 'ASC')
-                    ->where('commune_id !=', $pc->commune_id)->findAll(),
+                    ->where('commune_id !=', $pc->commune)->findAll(),
             ];
             if ($this->request->getMethod() == 'post') {
                 $this->validation->setRules([
@@ -294,7 +297,7 @@ class Pcs extends BaseController
                     $data['validation'] = $this->validation->getErrors();
                 }
             }
-            return view('pcs/add', $data);
+            return view('pcs/edit', $data);
 
         } else {
             $session = session();
@@ -303,6 +306,60 @@ class Pcs extends BaseController
         }
     }
 
+    public function changeScannedFile($pcId)
+    {
+        $pc = $this->pcModel->asObject()->where('pc_id', $pcId)->first();
+        if (!empty($pc)) {
+            $data = [
+                'validation' => null,
+                'title' => "Changer le fichier scanné",
+                'pc' => $pc
+            ];
+
+            if ($this->request->getMethod() == 'post') {
+                $this->validation->setRules([
+                    'scanned_file' => [
+                        'label' => "Fichier Scanné",
+                        'rules' => 'max_size[scanned_file, 50096]|ext_in[scanned_file,pdf,docx,png,jpg,jpeg]',
+                        'errors' => [
+                            'ext_in' => 'Le format du fichier choisi n\'est pas pris en charge',
+                            'max_size' => "La taille maximale du fichier doit être 50MB"
+                        ]
+                    ],
+                ]);
+                if ($this->validation->withRequest($this->request)->run()) {
+
+                    $path = '.public/assets/uploads/pcs';
+
+                    $file = $this->request->getFile('scanned_file');
+
+                    if ($file->isValid() && !$file->hasMoved()) {
+                        $fileName = $file->getRandomName();
+                        $file->move($path, $fileName);
+                    } else {
+                        $fileName = "no_file";
+                    }
+
+                    $data = array(
+                        'scanned_file' => $fileName,
+                    );
+
+                    $this->pcModel->update($pcId, $data);
+                    $session = session();
+                    $session->setFlashData("success", "Fichier modifié avec succès !");
+                    return redirect()->to('pcs-list');
+
+                } else {
+                    $data['validation'] = $this->validation->getErrors();
+                }
+            }
+            return view('pcs/scanned_file', $data);
+        } else {
+            $session = session();
+            $session->setFlashData("error", "Impossible de modifier, PC non retrouvé!");
+            return redirect()->to('pcs-list');
+        }
+    }
 
     function download($filename = NULL)
     {

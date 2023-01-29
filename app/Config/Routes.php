@@ -55,6 +55,12 @@ $routes->group('', ['filter' => 'AuthCheck'], function ($routes) {
     $routes->get('delete-pc/(:any)', 'Pcs::deletePc/$1');
     $routes->get('edit-pc/(:any)', 'Pcs::editPc/$1');
     $routes->post('edit-pc/(:any)', 'Pcs::editPc/$1');
+    $routes->post('change-pc-scanned-file/(:any)', 'Pcs::changeScannedFile/$1');
+    $routes->get('change-pc-scanned-file/(:any)', 'Pcs::changeScannedFile/$1');
+
+    //PV de Constat Mise En valeur
+    $routes->get('add-pv-mise-en-valeur', 'MiseEnValeurs::add');
+    $routes->post('add-pv-mise-en-valeur', 'MiseEnValeurs::add');
 
 
 });
